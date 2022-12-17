@@ -55,7 +55,7 @@ def recommend_more(reader):
     return reversed(indices_list)
 
 if __name__ == '__main__':
-    os.system('cls')
+    os.system('clear')
     book_list = read_books('books.txt')
     names, ratings = read_ratings('ratings.csv')
     user_ratings = np.transpose(ratings)
@@ -86,7 +86,7 @@ if __name__ == '__main__':
                 if suggestions_for.lower() == 'done':
                     user_not_done = False
                 elif suggestions_for not in names:
-                    os.system('cls')
+                    os.system('clear')
                     print("Sorry, that name is not in our library. Enter a username from below or type 'done'.", end = '\n' * 2)
             else:
                 suggestions_for = username
@@ -99,7 +99,7 @@ if __name__ == '__main__':
                         if user_ratings[suggestion_to_index][a] == 5:
                             if a not in recommended_list:
                                 recommended_list.append(a)
-            os.system('cls')
+            os.system('clear')
             if is_guest(username):
                 print(f'For {suggestions_for} we recommend:')
             else:
