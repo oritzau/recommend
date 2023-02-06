@@ -10,8 +10,7 @@ class Book:
 def is_guest(username):
     if username.lower() == "guest":
         return True
-    else:
-        return False
+    return False
 
 def read_books(file_name):
     book_list = []
@@ -34,7 +33,7 @@ def read_ratings(file_name):
     return name_tuple, final_ratings_data
 
 # #Task 5
-def recommend(reader):
+def recommend(reader, user_ratings):
     similarity_list = []
     for row in user_ratings:
         similarity = np.dot(user_ratings[reader], row)
@@ -43,7 +42,7 @@ def recommend(reader):
     similarity_max_index = similarity_list.index(similarity_second_max)
     return similarity_max_index
     
-def recommend_more(reader):
+def recommend_more(reader, user_ratings):
     similarity_list = []
     indices_list = []
     for row in user_ratings:
@@ -54,7 +53,8 @@ def recommend_more(reader):
         indices_list.append(index)
     return reversed(indices_list)
 
-if __name__ == '__main__':
+
+def main():
     os.system('clear')
     book_list = read_books('books.txt')
     names, ratings = read_ratings('ratings.csv')
@@ -93,7 +93,7 @@ if __name__ == '__main__':
                 user_not_in_list = False
         try:
             suggestion_for_index = names.index(suggestions_for)
-            for suggestion_to_index in recommend_more(suggestion_for_index):
+            for suggestion_to_index in recommend_more(suggestion_for_index, user_ratings):
                 for a, b in enumerate(user_ratings[suggestion_to_index]):
                     if user_ratings[suggestion_for_index][a] == 0 and (len(recommended_list) < 5):
                         if user_ratings[suggestion_to_index][a] == 5:
@@ -129,3 +129,6 @@ if __name__ == '__main__':
                 print('Thank you for using Recommend.', end = '\n' * 2)
                 user_not_done = False
         
+
+if __name__ == '__main__':
+    main()
